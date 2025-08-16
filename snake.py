@@ -5,27 +5,33 @@ UP=90
 DOWN=270
 LEFT=180
 RIGHT=0
+J=0
 
 class Snake:
-
+    
     def __init__(self):
         self.segment=[]
         self.create_snake()
         self.head=self.segment[0]
 
     def create_snake(self):
-        
-        j=0
         for i in POS:
-            cursor=Turtle("square")
-            if j%2==0:
-                cursor.color("green")
-            else:
-                cursor.color("black")
-            j=j+1
-            cursor.penup()
-            cursor.goto(i)
-            self.segment.append(cursor)
+            self.add_segments(i)
+            
+    def add_segments(self,i):
+        global J
+        cursor=Turtle("square")
+        if J%2==0:
+            cursor.color("green")
+        else:
+            cursor.color("black")
+        J=J+1
+        cursor.penup()
+        cursor.goto(i)
+        self.segment.append(cursor)
+
+    def extend(self):
+        self.add_segments(self.segment[-1].position())
 
     def move(self):
         for seg_num in range(len(self.segment)-1,0,-1):
